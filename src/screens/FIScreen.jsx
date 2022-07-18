@@ -18,18 +18,20 @@ const FIScreen = () => {
 
      //getFilterdSn List
      const fetchDataSN = async () => {
-          try {
-               const response = await SLTLDBConnection.get(`/get_tiredetails_filterd_sntext/${val}`)
-               setTireDeatails(response.data.data)
-          } catch (err) {
-               console.error(err.message)
+          if (val.length > 0) {
+               try {
+                    const response = await SLTLDBConnection.get(`/detailfrmparams/get_tiredetails_filterd_sntext/${val}`)
+                    setTireDeatails(response.data.data)
+               } catch (err) {
+                    console.error(err.message)
+               }
           }
      }
 
      //Get last day produciton
      const fetchDataLastDay = async () => {
           try {
-               const response = await SLTLDBConnection.get(`/get_tiredetails_of_given_noof_dates_back_frm_mfg_tbl/300`)
+               const response = await SLTLDBConnection.get(`/detailfrmparams/get_tiredetails_of_given_noof_dates_back_frm_mfg_tbl/300`)
                setTireDeatails(response.data.data)
           } catch (err) {
                console.error(err.message)
@@ -43,7 +45,7 @@ const FIScreen = () => {
           } else {
                fetchDataSN()
           }
-        
+
      }, [val])
 
 

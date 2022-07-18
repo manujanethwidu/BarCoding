@@ -14,6 +14,7 @@ const SnComponent = ({ pidNewState, filterBarHideSetter, inputRefFocus, inputRef
     const [sizeFullOrigStage, setSizeFullOrigStage] = useState("")
     const [pidOrigState, setPidOrigState] = useState()
     const [qgOrigState, setQgOrigState] = useState()
+    const [hideQG, setHideQG] = useState(false)
 
     const [tireDetailState, setTireDetailState] = useState({})
 
@@ -74,9 +75,8 @@ const SnComponent = ({ pidNewState, filterBarHideSetter, inputRefFocus, inputRef
                     if (pidDetail.data.data.rows.length == 0) {
                         setSnOrigState("")
                     }
-                    console.log(pidDetail.data.data.rows[0]);
+                    console.log(pidDetail.data.data.rows[0].avl);
                     const { tiresizebasic, lugtypecap, config, rimsize, tiretypecap, brand, swmsg, pid, avl, qg } = pidDetail?.data?.data?.rows[0]
-                    console.log(brand);
                     setSizeFullOrigStage(tiresizebasic + " " + lugtypecap + " " + config + " " + tiretypecap + " " + rimsize + " " + brand + " " + swmsg)
                     setPidOrigState(pid)
                     setSnNewState(snOrigState)
@@ -89,7 +89,6 @@ const SnComponent = ({ pidNewState, filterBarHideSetter, inputRefFocus, inputRef
                     setPidNewLocalState(pid)
                     setQgOrigState(qg.toUpperCase())
                     setQgNewState(qg.toUpperCase())
-
                 }
                 catch (err) {
                     console.log(err);
@@ -103,8 +102,7 @@ const SnComponent = ({ pidNewState, filterBarHideSetter, inputRefFocus, inputRef
         } else {
             if (snNewState.toString().length !== 9)
                 filterBarHideSetter(true)
-        }
-        //lenth is smaller than 9
+        }            //lenth is smaller than 9
         //Resetting
         setSizeFullOrigStage('')
         setSnNewState('')
@@ -114,6 +112,7 @@ const SnComponent = ({ pidNewState, filterBarHideSetter, inputRefFocus, inputRef
         setQgOrigState("")
         setQgNewState("")
         setTireDetailSetter("")
+
         //Controll new SN typeing.
         //When old Sn is not typed only new SN can be enterd
         if (snOrigState.toString().length == 0) {
@@ -135,9 +134,13 @@ const SnComponent = ({ pidNewState, filterBarHideSetter, inputRefFocus, inputRef
                     if (pidDetail.data.data.rows.length == 0) {
                         notifySuccessQk('අලුත් සීරියල් නොම්බරයකි')
                     } else {//SN is available
-                        console.log(pidDetail.data.data.rows[0]);
-                        const { tiresizebasic, lugtypecap, config, rimsize, tiretypecap, brand, swmsg, pid } = pidDetail?.data?.data?.rows[0]
-
+                        const { tiresizebasic, lugtypecap, config, rimsize, tiretypecap, brand, swmsg, pid, avl } = pidDetail?.data?.data?.rows[0]
+                        setHideQG(false)
+                        if (avl == 1 || avl == 0) {
+                            filterBarHideSetter(true)
+                            setHideQG(true)
+                            notifyError("මෙය ස්ටෝරුවේ තිබෙනා ටයරයකි")
+                        }
                         //Individual Tire Detail 
                         setTireDetailSetter(tiresizebasic, lugtypecap, config, tiretypecap, rimsize, brand, swmsg)
 
@@ -218,8 +221,8 @@ const SnComponent = ({ pidNewState, filterBarHideSetter, inputRefFocus, inputRef
 
         const w = 0
         var zpl = "^XA" +
-        "^FO" + (w + 50) + ",0^BY2 ^BCN,85,N,N,S^FD" + barcode
-        + "^FS^CF0,40^FO" + (w + 100) + ",90^FD" + barcode + "^FS^XZ";
+            "^FO" + (w + 50) + ",0^BY2 ^BCN,85,N,N,S^FD" + barcode
+            + "^FS^CF0,40^FO" + (w + 100) + ",90^FD" + barcode + "^FS^XZ";
         // var zpl = "^XA" +
         //     "^FO" + (w + 170) + ",0^BY2 ^BCN,80,N,N,S^FD" + barcode
         //     + "^FS^CF0,40^FO" + (w + 200) + ",100^FD" + barcode + "^FS^XZ";
@@ -248,7 +251,7 @@ const SnComponent = ({ pidNewState, filterBarHideSetter, inputRefFocus, inputRef
                     return notifyError(updateStockTbl.data.error)
                 }
 
-               
+
             } catch (err) {
                 notifyError(err.message)
             }
@@ -312,7 +315,7 @@ const SnComponent = ({ pidNewState, filterBarHideSetter, inputRefFocus, inputRef
             <div className="row mt-3  ">
                 {/* Tire Size ---------------------------*/}
                 <div className="col-6 alert alert-primary ml-1">
-                    <h3 className='text-primary'>පැරණි විස්තර හා වෙනස්කම්</h3> 
+                    <h3 className='text-primary'>පැරණි විස්තර හා වෙනස්කම්</h3>
                     <hr />
                     <form>
                         <div>
@@ -349,35 +352,37 @@ const SnComponent = ({ pidNewState, filterBarHideSetter, inputRefFocus, inputRef
                         </div>}
                         {disbleNeSn ? "" : <hr />}
 
-                        <fieldset className="form-group">
-                            <div className="row">
-                                <legend className="col-form-label col-sm-2 pt-0"> අලුත් QG</legend>
-                                <div className="rounded-circle form-check form-check-inline bg-primary p-3 text-white">
-                                    <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="A" onChange={e => { onValueChange(e) }} checked={qgNewState == "A"} />
-                                    <label className="form-check-label" for="inlineRadio1">A</label>
+                        {
+                            hideQG ? "" : <fieldset className="form-group">
+                                <div className="row">
+                                    <legend className="col-form-label col-sm-2 pt-0"> අලුත් QG</legend>
+                                    <div className="rounded-circle form-check form-check-inline bg-primary p-3 text-white">
+                                        <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="A" onChange={e => { onValueChange(e) }} checked={qgNewState == "A"} />
+                                        <label className="form-check-label" for="inlineRadio1">A</label>
+                                    </div>
+                                    <div className="rounded-circle form-check form-check-inline bg-success p-3  text-white">
+                                        <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="B" onChange={e => { onValueChange(e) }} checked={qgNewState == "B"} />
+                                        <label className="form-check-label" for="inlineRadio2">B</label>
+                                    </div>
+                                    <div className="rounded-circle form-check form-check-inline bg-warning p-3  text-white">
+                                        <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="C" onChange={e => { onValueChange(e) }} checked={qgNewState == "C"} />
+                                        <label className="form-check-label" for="inlineRadio3">C</label>
+                                    </div>
+                                    <div className="rounded-circle form-check form-check-inline bg-info p-3  text-white">
+                                        <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="E" onChange={e => { onValueChange(e) }} checked={qgNewState == "E"} />
+                                        <label className="form-check-label" for="inlineRadio3">E</label>
+                                    </div>
+                                    <div className="rounded-circle form-check form-check-inline bg-danger p-3 text-white">
+                                        <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="R" onChange={e => { onValueChange(e) }} checked={qgNewState == "R"} />
+                                        <label className="form-check-label" for="inlineRadio3">R</label>
+                                    </div>
+                                    <div className="rounded-circle form-check form-check-inline bg-secondary p-3 text-white">
+                                        <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="L" onChange={e => { onValueChange(e) }} checked={qgNewState == "L"} />
+                                        <label className="form-check-label" for="inlineRadio3">L</label>
+                                    </div>
                                 </div>
-                                <div className="rounded-circle form-check form-check-inline bg-success p-3  text-white">
-                                    <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="B" onChange={e => { onValueChange(e) }} checked={qgNewState == "B"} />
-                                    <label className="form-check-label" for="inlineRadio2">B</label>
-                                </div>
-                                <div className="rounded-circle form-check form-check-inline bg-warning p-3  text-white">
-                                    <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="C" onChange={e => { onValueChange(e) }} checked={qgNewState == "C"} />
-                                    <label className="form-check-label" for="inlineRadio3">C</label>
-                                </div>
-                                <div className="rounded-circle form-check form-check-inline bg-info p-3  text-white">
-                                    <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="E" onChange={e => { onValueChange(e) }} checked={qgNewState == "E"} />
-                                    <label className="form-check-label" for="inlineRadio3">E</label>
-                                </div>
-                                <div className="rounded-circle form-check form-check-inline bg-danger p-3 text-white">
-                                    <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="R" onChange={e => { onValueChange(e) }} checked={qgNewState == "R"} />
-                                    <label className="form-check-label" for="inlineRadio3">R</label>
-                                </div>
-                                <div className="rounded-circle form-check form-check-inline bg-secondary p-3 text-white">
-                                    <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="L" onChange={e => { onValueChange(e) }} checked={qgNewState == "L"} />
-                                    <label className="form-check-label" for="inlineRadio3">L</label>
-                                </div>
-                            </div>
-                        </fieldset>
+                            </fieldset>
+                        }
 
                     </form>
                 </div>
