@@ -1,0 +1,69 @@
+/* Footer-comp */
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+
+}
+
+/* Timer */
+.timer-container {
+  flex: 1, 1, 10rem;
+}
+
+.timeout-text {
+  font-size: 3rem;
+  padding: 1rem;
+  border: 0.1rem gray solid;
+  border-radius: 0.3rem;
+}
+
+/* TireCode Input */
+.tire-code-container {
+  flex: 1, 1, 10rem;
+  margin-right: 2rem;
+}
+
+#tire-code {
+  font-size: 5rem;
+  width: 30rem;
+}
+
+.sbleTimeOut-1 {
+  background-color: #ff0000;
+}
+.sbleTimeOut-2 {
+  background-color: #ff3300;
+}
+.sbleTimeOut-3 {
+  background-color: #ff6600;
+}
+.sbleTimeOut-4 {
+  background-color: #ff9900;
+}
+.sbleTimeOut-5 {
+  background-color: #ffcc00;
+}
+.sbleTimeOut-6 {
+  background-color: #d4d419;
+}
+.sbleTimeOut-7 {
+  background-color: #ccff00;
+}
+.sbleTimeOut-8 {
+  background-color: #2dc40f;
+}
+.sbleTimeOut-9 {
+  background-color: #1f9907;
+}
+.sbleTimeOut-10 {
+  background-color: #197506;
+}
+.sbleTimeOut-11 {
+  background-color: #136602;
+}
+.sbleTimeOut-ok {
+  background-color: green;
+  color: white;
+}

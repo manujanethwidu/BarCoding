@@ -1,0 +1,150 @@
+html {
+  /* font-size: 62.5%; 16px * 62.5 = 10px = 1rem */
+  font-family: "Lucida Sans", sans-serif;
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+
+@media screen and (max-width: 500px) {
+  html {
+       font-size: 1rem;
+     }
+}
+body {
+  font: 1.6rem Helvetica;
+  height: 100vh;
+  margin: 0;
+}
+.button,
+.link {
+  color: white;
+  margin-bottom: 1rem;
+  padding: 2rem;
+  background: #494a4e;
+  border: none;
+  border-radius: 0.5rem;
+  margin-right: 0.5rem;
+}
+.button:hover,
+.link:hover {
+  background: #4bca4b;
+  border: 1 #0c0000 solid;
+  font-weight: 400;
+}
+button {
+  font-size: 1.6rem;
+}
+.full-width {
+  width: 100%;
+}
+#root {
+  height: 100%;
+}
+/* Grid containters */
+
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    "header"
+    "main"
+    "footer";
+  grid-template-columns: 1fr;
+  grid-template-rows: 5rem 1fr 5rem;
+  height: 100%;
+}
+.header {
+  grid-area: header;
+  background-color: #4b4c53;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+}
+.main {
+  grid-area: main;
+}
+.footer {
+  grid-area: footer;
+  background-color: #4b4c53;
+  color: #ffffff;
+}
+.sign-out{
+  padding: 1rem;
+  color: red;
+}
+.sign-out h4{
+  padding: 1rem;
+  color: orangered;
+}
+
+/* ************************************************** */
+/* Tire Builder */
+
+/* Grid containters */
+.grid-container-builder {
+  display: grid;
+  grid-template-areas:
+    "header-builder"
+    "main-builder"
+    "footer-builder";
+  grid-template-columns: 1fr;
+  grid-template-rows: 5rem 1fr 5rem;
+  height: calc(100vh - 14rem);
+}
+.header-builder {
+  grid-area: header-builder;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+.main-builder {
+  grid-area: main-builder;
+}
+.footer-builder {
+  grid-area: footer-builder;
+}
+.builder-scale-reading {
+  margin: 0.5rem;
+  font-size: 2rem;
+  width: 25rem;
+}
+/* ****************************************** */
+
+/* Sidebar */
+
+.brand button {
+  font-size: 3rem;
+  padding: 0.5rem;
+  background: none;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+}
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  transition: all 0.5s;
+  transform: translateX(-30rem);
+  width: 30rem;
+  background-color: #f0f0f0;
+  height: 100%;
+}
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.sidebar-close-button {
+  border-radius: 0.5rem;
+  border: 0.1rem #000000 solid;
+  width: 3rem;
+  height: 3rem;
+  padding: 0.5rem;
+  font-size: 2rem;
+  padding-top: 0;
+  cursor: pointer;
+  position: absolute;
+  right: 0.5rem;
+  top: 1.5rem;
+}

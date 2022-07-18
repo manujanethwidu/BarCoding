@@ -1,0 +1,24 @@
+.main-container {
+ 
+     height: 50vh;
+     display: grid;
+     margin-left: .5rem;
+     margin-right: .5rem;
+     grid-template-columns: 1fr 1fr 1fr;
+     grid-template-rows: 1fr;
+  grid-template-areas:
+    "desc order press";
+
+}
+.tire-description {
+  background-color: rgb(31, 31, 32);
+  grid-area: desc;
+}
+.order-detail {
+  grid-area: order;
+  background-color: green;
+}
+.press-detail {
+  grid-area: press;
+  background-color: yellow;
+}

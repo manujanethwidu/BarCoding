@@ -1,0 +1,13 @@
+.tiredetail-container{
+    
+     display: flex;
+     flex-wrap: wrap;
+     align-items: flex-start;
+     
+}
+
+.tiredetail-container h4{
+     color: rgb(215, 245, 245);
+     padding: 2rem;
+     font-size: 3rem;
+}
