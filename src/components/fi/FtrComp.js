@@ -174,6 +174,10 @@ const FtrComp = ({ tireDetails }) => {
           setHd(e.target.name)
      }
 
+
+     const btnCheck = async (e) => {
+          alert("fuck")
+     }
      //Enter data
      const btnTireGradeHandler = async (e) => {
           //Correct Grade
@@ -200,7 +204,7 @@ const FtrComp = ({ tireDetails }) => {
           // var zpl = "^XA" +
           // "^FO" + (w + 170) + ",0^BY2 ^BCN,80,N,N,S^FD" + barcode
           // + "^FS^CF0,40^FO" + (w + 200) + ",100^FD" + barcode + "^FS^XZ";
-        
+
           try {
                const updateBarCode = await printerHost.put(`/bc`, { zpl, bcprinter: 1 })
                //Error in server
@@ -668,6 +672,10 @@ const FtrComp = ({ tireDetails }) => {
                                    </>
 
                               }
+                              <button name="L"
+                                   onClick={e => btnCheck(e)}
+                                   className='btn btn-secondary form-control'>L
+                              </button>
                          </>
                }
           </div>

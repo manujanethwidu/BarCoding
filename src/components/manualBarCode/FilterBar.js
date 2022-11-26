@@ -172,7 +172,6 @@ const FilterBar = ({pidNewState,newPidSetter}) => {
             </div>
             <DataTable/>
             {/* ---------------------------------------------- */}
-
         </div>
 
     )
