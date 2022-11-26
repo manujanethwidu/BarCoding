@@ -200,7 +200,7 @@ const FtrComp = ({ tireDetails }) => {
           // var zpl = "^XA" +
           // "^FO" + (w + 170) + ",0^BY2 ^BCN,80,N,N,S^FD" + barcode
           // + "^FS^CF0,40^FO" + (w + 200) + ",100^FD" + barcode + "^FS^XZ";
-      console.log(zpl);
+        
           try {
                const updateBarCode = await printerHost.put(`/bc`, { zpl, bcprinter: 1 })
                //Error in server
@@ -266,14 +266,12 @@ const FtrComp = ({ tireDetails }) => {
                          us,
                          grade
                     });
-                    //Hide button itself
-                    // document.getElementById("btnEnter").style.visibility = 'hidden'
 
                     //If error in updating
                     if (updateFITbl.data.error) {
                          return notifyError(updateFITbl.data.error)
                     }
-                   
+
                }
                const avl = avlRef.current
                const updateStockTbl = await SLTLDBConnection.put(`/stk/stockbarcode/${sn}`, {
@@ -289,7 +287,7 @@ const FtrComp = ({ tireDetails }) => {
                     sn,
                     barcode,
                     dom: TodayDateFormatter(),
-                }
+               }
                //Update TTS(create text file)
                CreateTxtFile(txtFileData)
                history.push(`/fi`)
@@ -381,7 +379,7 @@ const FtrComp = ({ tireDetails }) => {
                                         className='btn btn-primary form-control'
                                         onClick={e => btnTireGradeHandler(e)}>
                                         A+
-                         </button>
+                                   </button>
                               </div> :
                               <div> </div>}
                     </>
@@ -620,7 +618,7 @@ const FtrComp = ({ tireDetails }) => {
                                                                                 name="A"
                                                                                 onClick={e => btnTireGradeHandler(e)}>
                                                                                 A
-                                                                 </button>
+                                                                           </button>
                                                                            </td>
                                                                       </tr>
                                                                  </tbody>
@@ -636,27 +634,27 @@ const FtrComp = ({ tireDetails }) => {
                                                                       <td> <button name="B"
                                                                            onClick={e => btnTireGradeHandler(e)}
                                                                            className='btn btn-success form-control'>B
-                                                            </button>
+                                                                      </button>
                                                                       </td>
                                                                       <td> <button name="C"
                                                                            onClick={e => btnTireGradeHandler(e)}
                                                                            className='btn btn-warning form-control'>C
-                                                            </button>
+                                                                      </button>
                                                                       </td>
                                                                       <td> <button name="E"
                                                                            onClick={e => btnTireGradeHandler(e)}
                                                                            className='btn btn-info form-control'>E
-                                                            </button>
+                                                                      </button>
                                                                       </td>
                                                                       <td> <button name="R"
                                                                            onClick={e => btnTireGradeHandler(e)}
                                                                            className='btn btn-danger form-control'>R
-                                                            </button>
+                                                                      </button>
                                                                       </td>
                                                                       <td> <button name="L"
                                                                            onClick={e => btnTireGradeHandler(e)}
                                                                            className='btn btn-secondary form-control'>L
-                                                            </button>
+                                                                      </button>
                                                                       </td>
                                                                  </tr>
 
